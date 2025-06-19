@@ -75,3 +75,5 @@ chipo1 = chipo.withColumn("item_price3",
                           )
 chipo1.show(5)
 chipo1.select("item_price3").printSchema()
+
+spark.stop()

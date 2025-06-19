@@ -6,6 +6,7 @@ help(spark.read.csv)
 help(spark.read.options)
 # Reading the data and assigning the data to a variable called chipo
 chipo = (spark.read.options(header= True, delimiter= "\t", inferSchema=True).
+
          format("csv").
          load("/Users/sukumarsubudhi/Downloads/Learning/Pyspark/pyspark_exercises-master/01_Getting_&_Knowing_Your_Data/Chipotle/chipotle.tsv")
          )
@@ -75,6 +76,23 @@ avg_revenue_per_order = revenue / n_orders
 chipo3.show()
 from pyspark.sql.functions import count_distinct
 chipo3.agg(count_distinct("item_name")).show()
+
+
+chipo.show()
+# Adding a column to the dataframe
+from pyspark.sql.functions import col
+chipo.printSchema()
+chipo_new = chipo.withColumn("quantity_plus1", col("quantity")+1)
+chipo_new.printSchema()
+chipo_new.show(10)
+
+# Droping a column
+chipo_new.drop("quantity_plus1").show()
+
+# Renaming a column
+chipo_new.withColumnRenamed("quantity", "qty").show()
+
+
 
 # spark.sparkContext.uiWebUrl
 spark.stop()
